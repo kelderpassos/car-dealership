@@ -24,7 +24,7 @@ class CarsController {
 
     const newCar = await this._service.create(carInfos);
     
-    return res.status(200).json(newCar);
+    return res.status(201).json(newCar);
   }
 
   async read(req: Request, res: Response<ICar[]>) {
