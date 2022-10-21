@@ -5,5 +5,3 @@ export interface IModel<T> {
   update(_id: string, obj: T): Promise<T | null>,
   detele(_id: string): Promise<T | null>,
 }
-
-export default IModel;
