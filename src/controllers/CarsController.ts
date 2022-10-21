@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import IService from '../interfaces/IService';
 import { ICar } from '../interfaces/ICar';
+import { ErrorTypes } from '../utils/errorCatalog';
 
 class CarsController {
   private _service: IService<ICar>;
@@ -40,21 +41,34 @@ class CarsController {
     
     return res.status(200).json(specificCar);
   }
+  
+  async update(req: Request, res: Response<ICar | null>) {
+    const { id } = req.params;
+    const { 
+      model,
+      year,
+      color,
+      status,
+      buyValue,
+      doorsQty,
+      seatsQty,
+    } = req.body;
 
+    const carInfos = { model, year, color, status, buyValue, doorsQty, seatsQty };
+
+    if (Object.keys(req.body).length === 0) throw new Error(ErrorTypes.InvalidRequestBody);
+
+    const specificCar = await this._service.update(id, carInfos);
+    
+    return res.status(200).json(specificCar);
+  }
+  
   // async delete(_id: string): Promise<ICar | null> {
   //   const deletedCar = await this._carsModel.delete(_id);
 
   //   if (!deletedCar) throw new Error('Entity not found');
 
   //   return deletedCar;
-  // }
-
-  // async update(_id: string, obj: unknown): Promise<ICar | null> {
-  //   const parsed = CarZodSchema.safeParse(obj);
-
-  //   if (!parsed.success) throw parsed.error;
-
-  //   return this._carsModel.update(_id, parsed.data);
   // }
 }
 

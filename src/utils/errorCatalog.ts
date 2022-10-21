@@ -2,6 +2,7 @@ export enum ErrorTypes {
   InvalidMongoId = 'InvalidMongoId',
   undefined = 'undefined',
   ObjectNotFound = 'ObjectNotFound',
+  InvalidRequestBody = 'InvalidRequestBody',
 }
 
 type ErrorResponseObject = {
@@ -25,5 +26,9 @@ export const errorCatalog: ErrorCatalog = {
   ObjectNotFound: {
     httpStatus: 404,
     error: 'Object not found',
+  },
+  InvalidRequestBody: {
+    httpStatus: 400,
+    error: 'Empty body is not allowed',
   },
 };

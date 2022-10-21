@@ -26,8 +26,16 @@ class CarsService implements IService<ICar> {
     const specificCar = await this._carsModel.readOne(_id);
 
     if (!specificCar) throw new Error(ErrorTypes.ObjectNotFound);
-    
+
     return specificCar;
+  }
+  
+  async update(_id: string, obj: unknown): Promise<ICar | null> {
+    const parsed = CarZodSchema.safeParse(obj);
+
+    if (!parsed.success) throw parsed.error;
+
+    return this._carsModel.update(_id, parsed.data);
   }
 
   async delete(_id: string): Promise<ICar | null> {
@@ -36,14 +44,6 @@ class CarsService implements IService<ICar> {
     if (!deletedCar) throw new Error('Entity not found');
 
     return deletedCar;
-  }
-
-  async update(_id: string, obj: unknown): Promise<ICar | null> {
-    const parsed = CarZodSchema.safeParse(obj);
-
-    if (!parsed.success) throw parsed.error;
-
-    return this._carsModel.update(_id, parsed.data);
   }
 }
 
