@@ -33,13 +33,13 @@ class CarsController {
     return res.status(200).json(allCars);
   }
 
-  // async readOne(req: Request, res: Response<ICar>) {
-  //   const { id } = req.params;
+  async readOne(req: Request, res: Response<ICar | null>) {
+    const { id } = req.params;
 
-  //   const specificCar = await this._service.readOne(id);
+    const specificCar = await this._service.readOne(id);
     
-  //   return res.status(200).json(specificCar);
-  // }
+    return res.status(200).json(specificCar);
+  }
 
   // async delete(_id: string): Promise<ICar | null> {
   //   const deletedCar = await this._carsModel.delete(_id);
