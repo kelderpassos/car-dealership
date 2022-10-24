@@ -26,7 +26,7 @@ abstract class MongoModel<T> implements IModel<T> {
   public async update(_id: string, obj: Partial<T>): Promise<T | null> {
     if (!isValidObjectId(_id)) throw new Error(ErrorTypes.InvalidMongoId);
 
-    const updatedCar = await this._model.findByIdAndUpdate(_id, obj, { versionKey: false });
+    const updatedCar = await this._model.findByIdAndUpdate(_id, obj);
     
     if (!updatedCar) throw new Error(ErrorTypes.ObjectNotFound);
     
@@ -36,7 +36,11 @@ abstract class MongoModel<T> implements IModel<T> {
   public async delete(_id: string): Promise<T | null> {
     if (!isValidObjectId(_id)) throw new Error(ErrorTypes.InvalidMongoId);
 
-    return this._model.findByIdAndDelete(_id);
+    const deletedCar = await this._model.findByIdAndDelete(_id);
+    
+    if (!deletedCar) throw new Error(ErrorTypes.ObjectNotFound);
+
+    return deletedCar;
   }
 }
 

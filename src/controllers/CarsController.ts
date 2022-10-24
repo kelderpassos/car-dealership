@@ -63,13 +63,13 @@ class CarsController {
     return res.status(200).json(specificCar);
   }
   
-  // async delete(_id: string): Promise<ICar | null> {
-  //   const deletedCar = await this._carsModel.delete(_id);
+  async delete(req: Request, res: Response<ICar | null>) {
+    const { id } = req.params;
+    
+    await this._service.delete(id);
 
-  //   if (!deletedCar) throw new Error('Entity not found');
-
-  //   return deletedCar;
-  // }
+    return res.status(204).end();
+  }
 }
 
 export default CarsController;
