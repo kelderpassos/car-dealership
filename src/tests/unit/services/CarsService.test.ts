@@ -5,6 +5,7 @@ import CarsModel from '../../../models/CarsModel';
 import CarsService from '../../../services/CarsService';
 import { allCarsMock, bodyMock, carMock } from '../../mocks/carsMock';
 import { ZodError } from 'zod';
+import { ErrorTypes } from '../../../utils/errorCatalog';
 
 const { expect } = chai;
 
@@ -20,7 +21,7 @@ describe('Cars service', () => {
     it('creates a new car successfully', async () => {
       sinon.stub(carsModel, 'create').resolves(carMock);
       
-      const newCar = await carsModel.create(bodyMock);
+      const newCar = await carsService.create(bodyMock);
       
       expect(newCar).to.deep.equal(carMock);
     });
@@ -39,7 +40,7 @@ describe('Cars service', () => {
     it('brings all cars from db', async () => {
       sinon.stub(carsModel, 'read').resolves(allCarsMock);
       
-      const allCars = await carsModel.read();
+      const allCars = await carsService.read();
 
       expect(allCars).to.be.deep.equal(allCarsMock);
     });
@@ -56,13 +57,17 @@ describe('Cars service', () => {
     });
 
     it('throws an error if the id is invalid', async () => {
-      sinon.stub(carsService, 'readOne').resolves(null);
-  
+      sinon.stub(carsModel, 'readOne').resolves(null)
+
+      let error;
+
       try {
         await carsService.readOne('invalid-id');
-      } catch (error: any) {
-        expect(error.message).to.equal('ObjectNotFound');
+      } catch (err: any) {        
+        error = err
       }
+
+      expect(error?.message).to.deep.equal(ErrorTypes.ObjectNotFound);
     });
   });
 
@@ -76,13 +81,16 @@ describe('Cars service', () => {
     });
 
     it('throws an error if the id is invalid', async () => {
-      sinon.stub(carsService, 'update').resolves(null);
+      sinon.stub(carsModel, 'update').resolves(null);
+      
+      let error;
   
       try {
-        await carsService.update('invalid-id', bodyMock);
-      } catch (error: any) {
-        expect(error).to.be.an.instanceOf(ZodError);
+        await carsService.update('4edd40c86762e0fb12000003', '');
+      } catch (err: any) {
+        error = err;
       }
+      expect(error).to.be.an.instanceOf(ZodError);
     });
 
   });
