@@ -86,7 +86,7 @@ describe('Cars service', () => {
       let error;
   
       try {
-        await carsService.update('4edd40c86762e0fb12000003', '');
+        await carsService.update('4edd40c86762e0fb12000003', {});
       } catch (err: any) {
         error = err;
       }

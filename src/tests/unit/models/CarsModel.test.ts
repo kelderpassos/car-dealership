@@ -42,9 +42,7 @@ describe('Cars model', () => {
       expect(allCars).to.deep.equal(carMock);
     });
 
-    it('throws an error if the id is invalid', async () => {
-      sinon.stub(mongoose.Model, 'findOne').resolves(false);
-  
+    it('throws an error if the id is invalid', async () => {  
       try {
         await carsModel.readOne('invalid-id');
       } catch (error: any) {
@@ -62,13 +60,21 @@ describe('Cars model', () => {
       expect(updatedCar).to.deep.equal(carMock);
     });
 
-    it('throws an error if the id is invalid', async () => {
-      sinon.stub(mongoose.Model, 'findByIdAndUpdate').resolves(false);
-  
+    it('throws an error if the id is invalid', async () => {  
       try {
         await carsModel.update('invalid-id', bodyMock);
       } catch (error: any) {
         expect(error.message).to.equal('InvalidMongoId');
+      }
+    });
+
+    it('throws an error if the car doesn\'t exist', async () => {
+      sinon.stub(mongoose.Model, 'findByIdAndUpdate').resolves(false);
+  
+      try {
+        await carsModel.update('4edd40c86762e0fb12000003', {});
+      } catch (error: any) {
+        expect(error.message).to.equal('ObjectNotFound');
       }
     });
 
@@ -90,6 +96,16 @@ describe('Cars model', () => {
         await carsModel.delete('invalid-id');
       } catch (error: any) {
         expect(error.message).to.equal('InvalidMongoId');
+      }
+    });
+
+    it('throws an error if the id is invalid', async () => {
+      sinon.stub(mongoose.Model, 'findByIdAndDelete').resolves(false);
+  
+      try {
+        await carsModel.delete('4edd40c86762e0fb12000003');
+      } catch (error: any) {
+        expect(error.message).to.equal('ObjectNotFound');
       }
     });
   });
