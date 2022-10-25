@@ -9,6 +9,10 @@ abstract class MongoModel<T> implements IModel<T> {
     this._model = model;
   }
 
+  private checkId = (id: string) => {
+    if (!isValidObjectId(id)) throw new Error(ErrorTypes.InvalidMongoId);
+  };
+
   public async create(obj: T): Promise<T> {
     return this._model.create({ ...obj });
   }
@@ -18,13 +22,13 @@ abstract class MongoModel<T> implements IModel<T> {
   }
 
   public async readOne(_id: string): Promise<T | null> {
-    if (!isValidObjectId(_id)) throw new Error(ErrorTypes.InvalidMongoId);
+    this.checkId(_id);
 
     return this._model.findOne({ _id });
   }
 
   public async update(_id: string, obj: Partial<T>): Promise<T | null> {
-    if (!isValidObjectId(_id)) throw new Error(ErrorTypes.InvalidMongoId);
+    this.checkId(_id);
 
     const updatedCar = await this._model.findByIdAndUpdate(_id, obj);
 
@@ -34,7 +38,7 @@ abstract class MongoModel<T> implements IModel<T> {
   }
 
   public async delete(_id: string): Promise<T | null> {
-    if (!isValidObjectId(_id)) throw new Error(ErrorTypes.InvalidMongoId);
+    this.checkId(_id);
 
     const deletedCar = await this._model.findByIdAndDelete(_id);
     
