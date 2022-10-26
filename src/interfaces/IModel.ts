@@ -1,9 +1,10 @@
-export interface IModel<T> {
-  create(obj: T): Promise<T>,
-  read(): Promise<T[]>,
-  readOne(_id: string): Promise<T | null>,
-  update(_id: string, obj: T): Promise<T | null>,
-  delete(_id: string): Promise<T | null>,
-}
+import { ICreate, IDelete, IReadAll, IReadOne, IUpdate } from './CrudMethods';
+
+interface IModel<T> extends 
+  ICreate<T, T>, 
+  IReadAll<T>,
+  IReadOne<T>, 
+  IUpdate<T, T>, 
+  IDelete<T> {}
 
 export default IModel;
