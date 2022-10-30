@@ -1,9 +1,10 @@
-interface IService<T> {
-  create(obj: unknown): Promise<T>,
-  read(): Promise<T[]>,
-  readOne(_id: string): Promise<T | null>,
-  delete(_id: string): Promise<T | null>,
-  update(_id: string, obj: unknown): Promise<T | null>,
-}
+import { ICreate, IDelete, IReadAll, IReadOne, IUpdate } from './CrudMethods';
+
+interface IService<T> extends 
+  ICreate<T, T>,
+  IReadAll<T>,
+  IReadOne<T>,
+  IUpdate<T, T>,
+  IDelete<T> {}
 
 export default IService;
