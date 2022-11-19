@@ -10,7 +10,7 @@ class CarsController {
     this._service = service;
   }
 
-  async create(req: Request, res: Response<ICar>) {
+  async create(req: Request, res: Response<ICar | null>) {
     const { 
       model,
       year,
