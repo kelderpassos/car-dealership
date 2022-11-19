@@ -1,4 +1,4 @@
-import { ICreate, IDelete, IReadAll, IReadOne, IUpdate } from './CrudMethods';
+import { ICreate, IReadAll, IReadOne, IUpdate, IDelete } from './handlers/CrudMethods';
 
 interface IService<T> extends 
   ICreate<T, T>,
