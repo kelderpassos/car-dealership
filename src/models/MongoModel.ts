@@ -1,12 +1,12 @@
-import { Model, isValidObjectId } from 'mongoose';
+import { model, isValidObjectId, Schema } from 'mongoose';
 import IModel from '../interfaces/IModel';
 import { ErrorTypes } from '../utils/errorCatalog';
 
 abstract class MongoModel<T> implements IModel<T> {
-  protected _model:Model<T>;
+  protected _model;
 
-  constructor(model: Model<T>) {
-    this._model = model;
+  constructor(alias: string, schema: Schema) {
+    this._model = model(alias, schema);
   }
 
   private checkId = (id: string) => {
