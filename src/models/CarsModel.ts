@@ -1,5 +1,5 @@
 import carsMongooseSchema from './Schemas';
-import MongoModel from './MongoModel';
+import MongoModel from './Model';
 import { ICar } from '../interfaces/ICar';
 
 class CarsModel extends MongoModel<ICar> {
