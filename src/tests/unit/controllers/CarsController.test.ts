@@ -44,9 +44,9 @@ describe('Cars service', () => {
 
   describe('read', () => {
     it('brings all cars from db', async () => {
-      sinon.stub(carsService, 'read').resolves(allCarsMock);
+      sinon.stub(carsService, 'readAll').resolves(allCarsMock);
       
-      await carsController.read(req, res);
+      await carsController.readAll(req, res);
 
       const resStub = res.status as sinon.SinonStub;
       const jsonStub = res.json as sinon.SinonStub;

@@ -27,7 +27,7 @@ describe('Cars model', () => {
     it('brings all cars from db', async () => {
       sinon.stub(mongoose.Model, 'find').resolves(allCarsMock);
       
-      const allCars = await carsModel.read();
+      const allCars = await carsModel.readAll();
       
       expect(allCars).to.deep.equal(allCarsMock);
     });
