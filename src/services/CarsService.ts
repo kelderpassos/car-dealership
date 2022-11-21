@@ -1,45 +1,10 @@
-import IService from '../interfaces/IService';
-import IModel from '../interfaces/IModel';
+import CarsModel from '../models/CarsModel';
+import Service from './Service';
 import { ICar, CarZodSchema } from '../interfaces/ICar';
-import { ErrorTypes } from '../utils/errorCatalog';
 
-class CarsService implements IService<ICar> {
-  private _carsModel: IModel<ICar>;
-
-  constructor(model: IModel<ICar>) {
-    this._carsModel = model;
-  }
-
-  async create(obj: unknown): Promise<ICar | null> {
-    const parsed = CarZodSchema.safeParse(obj);
-
-    if (!parsed.success) throw parsed.error;
-
-    return this._carsModel.create(parsed.data);
-  }
-
-  async read(): Promise<ICar[]> {
-    return this._carsModel.read();
-  }
-
-  async readOne(_id: string): Promise<ICar | null> {
-    const specificCar = await this._carsModel.readOne(_id);
-
-    if (!specificCar) throw new Error(ErrorTypes.ObjectNotFound);
-
-    return specificCar;
-  }
-  
-  async update(_id: string, obj: unknown): Promise<ICar | null> {
-    const parsed = CarZodSchema.safeParse(obj);
-
-    if (!parsed.success) throw parsed.error;
-
-    return this._carsModel.update(_id, parsed.data);
-  }
-
-  async delete(_id: string): Promise<ICar | null> {
-    return this._carsModel.delete(_id);
+class CarsService extends Service<ICar> {
+  constructor(model = new CarsModel()) {
+    super(model, CarZodSchema);
   }
 }
 

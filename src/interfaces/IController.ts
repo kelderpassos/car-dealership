@@ -1,16 +1,16 @@
 import { 
-  ICreateHandler, 
-  IReadAllHandler, 
-  IReadOneHandler, 
-  IUpdateHandler, 
-  IDeleteHandler, 
+  ICreate, 
+  IReadAll, 
+  IReadOne, 
+  IUpdate, 
+  IDelete, 
 } from './handlers/RequestHandler';
 
 interface IController extends
-  ICreateHandler,
-  IReadAllHandler,
-  IReadOneHandler,
-  IUpdateHandler,
-  IDeleteHandler {}
+  ICreate,
+  IReadAll,
+  IReadOne,
+  IUpdate,
+  IDelete {}
   
 export default IController;
