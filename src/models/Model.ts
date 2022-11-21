@@ -1,5 +1,5 @@
 import { model, isValidObjectId, Schema } from 'mongoose';
-import IModel from '../interfaces/IModel';
+import IModel from '../interfaces/layers/IModel';
 import { ErrorTypes } from '../utils/errorCatalog';
 
 abstract class MongoModel<T> implements IModel<T> {

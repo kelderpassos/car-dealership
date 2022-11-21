@@ -1,4 +1,4 @@
-import { ICar } from '../interfaces/ICar';
+import { ICar } from '../interfaces/entities/ICar';
 import Controller from './Controller';
 import CarsService from '../services/CarsService';
 

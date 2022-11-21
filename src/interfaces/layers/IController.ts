@@ -4,7 +4,7 @@ import {
   IReadOne, 
   IUpdate, 
   IDelete, 
-} from './handlers/RequestHandler';
+} from '../handlers/RequestHandler';
 
 interface IController extends
   ICreate,

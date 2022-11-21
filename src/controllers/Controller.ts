@@ -1,6 +1,6 @@
 import { Response, Request } from 'express';
-import IController from '../interfaces/IController';
-import IService from '../interfaces/IService';
+import IController from '../interfaces/layers/IController';
+import IService from '../interfaces/layers/IService';
 import { ErrorTypes } from '../utils/errorCatalog';
 
 abstract class Controller<T> implements IController {
