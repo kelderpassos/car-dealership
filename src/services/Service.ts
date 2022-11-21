@@ -20,8 +20,8 @@ abstract class Service<T> implements IService<T> {
     return this._model.create(parsedData);
   }
 
-  public async read(): Promise<T[]> {
-    return this._model.read();
+  public async readAll(): Promise<T[]> {
+    return this._model.readAll();
   }
 
   public async readOne(id: string): Promise<T | null> {
@@ -34,7 +34,6 @@ abstract class Service<T> implements IService<T> {
 
   public async update(id: string, obj: Partial<T>): Promise<T | null> {
     const parsedData = this.safeParse(obj);
-
     return this._model.update(id, parsedData);
   }
   

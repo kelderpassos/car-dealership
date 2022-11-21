@@ -1,7 +1,7 @@
-import { RequestHandler } from 'express';
+import { Request, Response } from 'express';
 
-export interface ICreateHandler { create: RequestHandler }
-export interface IReadAllHandler { readAll: RequestHandler }
-export interface IReadOneHandler { readOne: RequestHandler }
-export interface IUpdateHandler { update: RequestHandler }
-export interface IDeleteHandler { delete: RequestHandler }
+export interface ICreate { create(req: Request, res: Response): Promise<Response | null> }
+export interface IReadAll { readAll(req: Request, res: Response): Promise<Response | null> }
+export interface IReadOne { readOne(req: Request, res: Response): Promise<Response | null> }
+export interface IUpdate { update(req: Request, res: Response): Promise<Response | null> }
+export interface IDelete { delete(req: Request, res: Response): void }

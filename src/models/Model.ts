@@ -17,7 +17,7 @@ abstract class MongoModel<T> implements IModel<T> {
     return this._model.create({ ...obj });
   }
 
-  public async read(): Promise<T[]> {
+  public async readAll(): Promise<T[]> {
     return this._model.find();
   }
 
