@@ -19,7 +19,7 @@ describe('Cars model', () => {
       
       const newCar = await carsModel.create(bodyMock);
       
-      expect(newCar).to.deep.equal(carMock);
+      expect(newCar).to.be.deep.equal(carMock);
     });
   });
 
@@ -72,12 +72,11 @@ describe('Cars model', () => {
       sinon.stub(mongoose.Model, 'findByIdAndUpdate').resolves(false);
   
       try {
-        await carsModel.update('4edd40c86762e0fb12000003', {});
+        await carsModel.update('4edd40c86762e0fb12000003', bodyMock);
       } catch (error: any) {
         expect(error.message).to.equal('ObjectNotFound');
       }
     });
-
   });
 
   describe('delete', () => {    

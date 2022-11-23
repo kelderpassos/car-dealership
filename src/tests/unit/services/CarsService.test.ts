@@ -1,6 +1,5 @@
 import * as sinon from 'sinon';
 import chai from 'chai';
-import mongoose from 'mongoose';
 import CarsModel from '../../../models/CarsModel';
 import CarsService from '../../../services/CarsService';
 import { allCarsMock, bodyMock, carMock } from '../../mocks/carsMock';
@@ -29,7 +28,14 @@ describe('Cars service', () => {
     it('throws an error if a new car isn\'t created', async () => {
 
       try {
-        await carsService.create({});
+        await carsService.create({
+          model: '',
+          year: 0,
+          color: '',
+          buyValue: 0,
+          doorsQty: 0,
+          seatsQty: 0
+        });
       } catch (error: any) {
         expect(error).to.be.instanceOf(ZodError);
       }
@@ -38,9 +44,9 @@ describe('Cars service', () => {
 
   describe('read', () => {
     it('brings all cars from db', async () => {
-      sinon.stub(carsModel, 'read').resolves(allCarsMock);
+      sinon.stub(carsModel, 'readAll').resolves(allCarsMock);
       
-      const allCars = await carsService.read();
+      const allCars = await carsService.readAll();
 
       expect(allCars).to.be.deep.equal(allCarsMock);
     });
