@@ -1,5 +1,6 @@
 import { Schema } from 'mongoose';
-import { ICar } from '../interfaces/ICar';
+import { ICar } from '../interfaces/entities/ICar';
+import { IMotorcycle } from '../interfaces/entities/IMotorcycle';
 
 const carsMongooseSchema = new Schema<ICar>({
   model: String,
@@ -11,4 +12,14 @@ const carsMongooseSchema = new Schema<ICar>({
   seatsQty: Number,
 }, { versionKey: false });
 
-export default carsMongooseSchema;
+const motorcycleMongooseSchema = new Schema<IMotorcycle>({
+  model: String,
+  year: Number,
+  color: String,
+  status: Boolean,
+  buyValue: Number,
+  category: String,
+  engineCapacity: Number,
+}, { versionKey: false });
+
+export { carsMongooseSchema, motorcycleMongooseSchema };
