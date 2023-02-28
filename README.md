@@ -21,6 +21,10 @@ git clone git@github.com:kelderpassos/vehicle-dealership.git
 ```
 docker-compose up -d
 ```
+Instale as dependências com o comando
+```
+npm install
+```
  Após isso é só iniciar a aplicação com 
  ```
 npm run dev
@@ -72,6 +76,10 @@ git clone git@github.com:kelderpassos/vehicle-dealership.git
  Enter the folder and run the docker compose
 ```
 docker-compose up -d
+```
+Install the dependecies with
+```
+npm install
 ```
  After that, just start the application 
  ```
